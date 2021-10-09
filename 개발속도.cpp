@@ -6,38 +6,23 @@ using namespace std;
 
 vector<int> solution(vector<int> progresses, vector<int> speeds)
 {
-	//100% 넘어가도 계속 계산해줌
 	vector<int> answer;
-	vector<int> day(progresses.size(), 0);
-	int count = 0;
-	int num = progresses.size();
-	while (num > 0)
+
+	int day;
+	int max_day = 0;
+	for (int i = 0; i < progresses.size(); ++i)
 	{
-		count++;
-		for (int i = 0; i < progresses.size(); i++)
-		{
-			progresses.at(i) += speeds.at(i);
-			if (day.at(i) == 0 && progresses.at(i) >= 100)
-			{
-				day.insert(day.begin() + i, count);
-				day.erase(day.begin() + i + 1);
-				num--;
-			}
-		}
+		day = (99 - progresses[i]) / speeds[i] + 1;
+
+		if (answer.empty() || max_day < day)			//empty() 벡터가 비어 있으면 true		먼저 100% 채워지면 뒷부분만 계산
+			answer.push_back(1);
+		else
+			++answer.back();							//마지막원소 ++
+
+		if (max_day < day)
+			max_day = day;
 	}
-	num = day.at(0);
-	count = 0;
-	for (int i = 1; i < day.size(); i++)
-	{
-		count++;
-		if (num < day.at(i))
-		{
-			answer.push_back(count);
-			num = day.at(i);
-			count = 0;
-		}
-	}
-	answer.push_back(++count);
+
 	return answer;
 }
 
