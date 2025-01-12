@@ -3,6 +3,6 @@
 public class Main {
     public static void main(String[] args) {
         //테스트파일입니다.
-        System.out.println("Hello and welcome!");
+        System.out.println("안녕!");
     }
 }
